@@ -157,7 +157,7 @@ Nᴀᴍᴇ - {}"""
     I_CUD_NT = """ɪ ᴄᴏᴜʟᴅɴ'ᴛ ꜰɪɴᴅ ᴀɴʏ ᴍᴏᴠɪᴇ ʀᴇʟᴀᴛᴇᴅ ᴛᴏ {}.
 ᴘʟᴇᴀꜱᴇ ᴄʜᴇᴄᴋ ᴛʜᴇ ꜱᴘᴇʟʟɪɴɢ ᴏɴ ɢᴏᴏɢʟᴇ ᴏʀ ɪᴍᴅʙ..."""
 
-    MVE_NT_FND = """SORRY NO FILES WERE FOUND FOR YOUR REQUEST😞\n\nMOVIE NOT AVAILABLE REASON:👇\n\n1) O.T.T OR DVD NOT RELEASED📌\n\n2) TYPE NAME WITH YEAR LIKE THIS👇\nJawan 2023\n\n3) MOVIE IS NOT AVAILABLE IN THE DATABASE 🤔\n REQUEST MOVIE TO ADMINS 👇\n👉 @tomnjerysupport..."""
+    MVE_NT_FND = """SORRY NO FILES WERE FOUND FOR YOUR REQUEST 💯\n\n REQUEST MOVIE TO ADMINS \n👉 @tomnjerysupport..."""
 
     TOP_ALRT_MSG = """Cʜᴇᴄᴋɪɴɢ Fᴏʀ Mᴏᴠɪᴇ Iɴ Dᴀᴛᴀʙᴀsᴇ..."""
 
