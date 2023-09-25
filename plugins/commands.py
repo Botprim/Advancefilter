@@ -310,7 +310,7 @@ async def start(client, message):
                     InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
                   ] ]
                 await message.reply_text(
-                    text="<b>Hey There {message.from_user.mention},\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
+                    text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
                     protect_content=True,
                     reply_markup=InlineKeyboardMarkup(btn)
                 )
@@ -373,7 +373,7 @@ async def start(client, message):
                     InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
                 ]]
                 await message.reply_text(
-                    text="<b>Hey There {message.from_user.mention},\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
+                    text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
                     protect_content=True,
                     reply_markup=InlineKeyboardMarkup(btn)
                 )
@@ -431,7 +431,7 @@ async def start(client, message):
             InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
         ]]
         await message.reply_text(
-            text="<b>Hey There {message.from_user.mention},\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
+            text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
             protect_content=True,
             reply_markup=InlineKeyboardMarkup(btn)
         )
