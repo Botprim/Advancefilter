@@ -236,7 +236,7 @@ async def start(client, message):
         if is_valid == True:
             await message.reply_text(
                 text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\nNow you have unlimited VIP ✨ access for all movies till today midnight.\n\n Not go back to your group and search again get your movies in files ✅💕 \n\n  #share and #Support</b>",
-                protect_content=True
+                protect_content=False
             )
             await verify_user(client, userid, token)
         else:
@@ -311,7 +311,7 @@ async def start(client, message):
                   ] ]
                 await message.reply_text(
                     text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
-                    protect_content=True,
+                    protect_content=False,
                     reply_markup=InlineKeyboardMarkup(btn)
                 )
                 return
@@ -374,7 +374,7 @@ async def start(client, message):
                 ]]
                 await message.reply_text(
                     text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
-                    protect_content=True,
+                    protect_content=False,
                     reply_markup=InlineKeyboardMarkup(btn)
                 )
                 return
@@ -432,7 +432,7 @@ async def start(client, message):
         ]]
         await message.reply_text(
             text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
-            protect_content=True,
+            protect_content=False,
             reply_markup=InlineKeyboardMarkup(btn)
         )
         return
