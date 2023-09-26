@@ -235,7 +235,7 @@ async def start(client, message):
         is_valid = await check_token(client, userid, token)
         if is_valid == True:
             await message.reply_text(
-                text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\nNow you have unlimited access for all movies till today midnight.</b>",
+                text=f"<b>Hey {message.from_user.mention}, You are successfully verified !\nNow you have unlimited VIP ✨ access for all movies till today midnight.\n\n Not go back to your group and search again get your movies in files ✅💕 \n\n  #share and #Support</b>",
                 protect_content=True
             )
             await verify_user(client, userid, token)
@@ -310,7 +310,7 @@ async def start(client, message):
                     InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
                   ] ]
                 await message.reply_text(
-                    text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
+                    text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
                     protect_content=True,
                     reply_markup=InlineKeyboardMarkup(btn)
                 )
@@ -373,7 +373,7 @@ async def start(client, message):
                     InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
                 ]]
                 await message.reply_text(
-                    text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
+                    text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
                     protect_content=True,
                     reply_markup=InlineKeyboardMarkup(btn)
                 )
@@ -423,7 +423,7 @@ async def start(client, message):
             logger.exception(e)
             f_caption=f_caption
     if f_caption is None:
-        f_caption = f"@Teamrioupdates  {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files.file_name.split()))}"
+        f_caption = f"✅  {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@'), files.file_name.split()))}"
     if not await check_verification(client, message.from_user.id) and VERIFY == True:
         btn = [[
             InlineKeyboardButton("📂Verify📂", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start="))
@@ -431,7 +431,7 @@ async def start(client, message):
             InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
         ]]
         await message.reply_text(
-            text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n Access For Next 24 Hours.💕</b>",
+            text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
             protect_content=True,
             reply_markup=InlineKeyboardMarkup(btn)
         )
