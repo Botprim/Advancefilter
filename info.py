@@ -49,14 +49,14 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Others
 VERIFY = bool(environ.get('VERIFY', False))
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'zxlink.in')
-SHORTLINK_API = environ.get('SHORTLINK_API', '717ed05741f661fdfe72eeafee077496ca23f3e9')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'shareus.io')
+SHORTLINK_API = environ.get('SHORTLINK_API', 'gK5Lz5Wa8AaEMON3sxF1fr5H8l03')
 IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', True))
 DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '0').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "5")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/newmoveisp')
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/newmoviesot')
 CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/marvelsbackups')
 TUTORIAL = environ.get('TUTORIAL', 'https://t.me/marvelsbackups/38')
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
