@@ -15,7 +15,7 @@ def is_enabled(value, default):
 SESSION = environ.get('SESSION', 'Media_search')
 API_ID = int(environ.get('API_ID', '22724700'))
 API_HASH = environ.get('API_HASH', '9acec40ee27d6b12a52b5e97c2402678')
-BOT_TOKEN = environ.get('BOT_TOKEN', "6659315454:AAHof76eSrg1rLy3yoI9YXJ0_YlpvPqMCRw")
+BOT_TOKEN = environ.get('BOT_TOKEN', "6659315454:AAELhaRCB5yoHkQ9HJZwzW5YCIot4gM3j8g")
 
 # Bot settings
 CACHE_TIME = int(environ.get('CACHE_TIME', 300))
@@ -96,8 +96,8 @@ else:
     ON_HEROKU = False
 BIND_ADRESS = str(getenv('WEB_SERVER_BIND_ADDRESS', '0.0.0.0'))
 FQDN = str(getenv('FQDN', BIND_ADRESS)) if not ON_HEROKU or getenv('FQDN') else APP_NAME+'.herokuapp.com'
-URL = "https://printed-anjela-marvelbotz-61652dc6.koyeb.app/".format(FQDN) if ON_HEROKU or NO_PORT else \
-    "https://printed-anjela-marvelbotz-61652dc6.koyeb.app/".format(FQDN, PORT)
+URL = "https://tomandjerrystreamt0-d4befbd7ff46.herokuapp.com/".format(FQDN) if ON_HEROKU or NO_PORT else \
+    "https://tomandjerrystreamt0-d4befbd7ff46.herokuapp.com/".format(FQDN, PORT)
 SLEEP_THRESHOLD = int(environ.get('SLEEP_THRESHOLD', '60'))
 WORKERS = int(environ.get('WORKERS', '4'))
 SESSION_NAME = str(environ.get('SESSION_NAME', 'LazyBot'))
@@ -112,9 +112,9 @@ else:
     ON_HEROKU = False
 HAS_SSL=bool(getenv('HAS_SSL',False))
 if HAS_SSL:
-    URL = "https://printed-anjela-marvelbotz-61652dc6.koyeb.app/".format(FQDN)
+    URL = "https://tomandjerrystreamt0-d4befbd7ff46.herokuapp.com/".format(FQDN)
 else:
-    URL = "https://printed-anjela-marvelbotz-61652dc6.koyeb.app/".format(FQDN)
+    URL = "https://tomandjerrystreamt0-d4befbd7ff46.herokuapp.com/".format(FQDN)
 
 
 
