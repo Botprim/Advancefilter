@@ -307,7 +307,7 @@ async def start(client, message):
                 btn = [[
                     InlineKeyboardButton("📂Verify📂", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start="))
                 ],[
-                    InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
+                    InlineKeyboardButton("⁉️How to Verify ⁉️", url="https://t.me/marvelsbackups/2")
                   ] ]
                 await message.reply_text(
                     text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
@@ -370,7 +370,7 @@ async def start(client, message):
                 btn = [[
                     InlineKeyboardButton("📂Verify📂", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start="))
                 ],[
-                    InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
+                    InlineKeyboardButton("⁉️How to Verify ⁉️", url="https://t.me/marvelsbackups/2")
                 ]]
                 await message.reply_text(
                     text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
@@ -428,7 +428,7 @@ async def start(client, message):
         btn = [[
             InlineKeyboardButton("📂Verify📂", url=await get_token(client, message.from_user.id, f"https://telegram.me/{temp.U_NAME}?start="))
         ],[
-            InlineKeyboardButton("⁉️How to Verify ⁉️", url="http://telegram.me/marvelsbackups/38")
+            InlineKeyboardButton("⁉️How to Verify ⁉️", url="https://t.me/marvelsbackups/2")
         ]]
         await message.reply_text(
             text="<b>Hey There,\n\n📌 You are not verified today!\nPlease verify and get unlimited \n (VIP) Access For Next 24 Hours.💕\n\nइस बॉट को इस्तेमाल करने के लिए\nआपको VERIFY करना होगा\nनहीं तो आप इसका इस्तेमाल नहीं कर पाएंगे |\nVerify करने के बाद 24 घंटे के लिए आप इसका इस्तेमाल कर सकते हैं|💕\n\n  Get Verify</b>",
