@@ -1,5 +1,11 @@
 import os
-
+import sys
+import glob
+import importlib
+from pathlib import Path
+from pyrogram import idle
+import logging
+import logging.config
 # Check if the database file exists
 db_path = "/workspace/.heroku/python/lib/python3.10/site-packages/pyrogram/storage/storage.sqlite"
 
@@ -8,13 +14,6 @@ if os.path.exists(db_path):
     print("SQLite database reset successfully!")
 else:
     print("No SQLite database found!")
-import sys
-import glob
-import importlib
-from pathlib import Path
-from pyrogram import idle
-import logging
-import logging.config
 
 # Get logging configurations
 logging.config.fileConfig('logging.conf')
