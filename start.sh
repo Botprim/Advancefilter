@@ -1,5 +1,3 @@
-#!/bin/bash
-
 if [ -z "$UPSTREAM_REPO" ]; then
   echo "Cloning main Repository"
   git clone https://github.com/1238muj/THALAPATHY-FILTER-BOT.git /THALAPATHY-FILTER-BOT
