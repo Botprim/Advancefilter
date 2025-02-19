@@ -1,4 +1,13 @@
+import os
 
+# Check if the database file exists
+db_path = "/workspace/.heroku/python/lib/python3.10/site-packages/pyrogram/storage/storage.sqlite"
+
+if os.path.exists(db_path):
+    os.remove(db_path)
+    print("SQLite database reset successfully!")
+else:
+    print("No SQLite database found!")
 import sys
 import glob
 import importlib
@@ -96,14 +105,4 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         logging.info('Service Stopped Bye 👋')
         
- import os
-
-# Check if the database file exists
-db_path = "/workspace/.heroku/python/lib/python3.10/site-packages/pyrogram/storage/storage.sqlite"
-
-if os.path.exists(db_path):
-    os.remove(db_path)
-    print("SQLite database reset successfully!")
-else:
-    print("No SQLite database found!") 
-
+ 
