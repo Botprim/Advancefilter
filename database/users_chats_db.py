@@ -6,94 +6,102 @@ class Database:
     def __init__(self, uri, database_name):
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
-        
-        # ✅ Users और Groups की Collections को सही से Define करें
-        self.users = self.db["users"]
-        self.groups = self.db["groups"]
 
-    def new_user(self, id, name):
+        # ✅ Users और Groups की Collections Define करें
+        self.users_collection = self.db["users"]
+        self.chats_collection = self.db["groups"]
+
+    def new_user(self, user_id, name):
         return {
-            "id": id,
+            "id": user_id,
             "name": name,
             "ban_status": {
                 "is_banned": False,
-                "ban_reason": "",
-            },
+                "ban_reason": ""
+            }
         }
 
-    def new_group(self, id, title):
+    def new_group(self, chat_id, title):
         return {
-            "id": id,
+            "id": chat_id,
             "title": title,
             "chat_status": {
                 "is_disabled": False,
-                "reason": "",
-            },
+                "reason": ""
+            }
         }
-    
-    async def add_user(self, id, name):
-        user = self.new_user(id, name)
-        await self.users.insert_one(user)  # ✅ अब self.users सही से काम करेगा
-    
-    async def is_user_exist(self, id):
-        user = await self.users.find_one({"id": int(id)})  # ✅ अब self.users से Query होगी
+
+    async def add_user(self, user_id, name):
+        user = self.new_user(user_id, name)
+        await self.users_collection.insert_one(user)
+
+    async def is_user_exist(self, user_id):
+        user = await self.users_collection.find_one({"id": int(user_id)})
         return bool(user)
-    
+
     async def total_users_count(self):
-        return await self.users.count_documents({})
-    
-    async def remove_ban(self, id):
-        await self.users.update_one(
-            {"id": id}, 
+        return await self.users_collection.count_documents({})
+
+    async def remove_ban(self, user_id):
+        await self.users_collection.update_one(
+            {"id": int(user_id)},
             {"$set": {"ban_status": {"is_banned": False, "ban_reason": ""}}}
         )
-    
-    async def ban_user(self, user_id, ban_reason="No Reason"):
-        await self.users.update_one(
-            {"id": user_id}, 
-            {"$set": {"ban_status": {"is_banned": True, "ban_reason": ban_reason}}}
+
+    async def ban_user(self, user_id, reason="No Reason"):
+        await self.users_collection.update_one(
+            {"id": int(user_id)},
+            {"$set": {"ban_status": {"is_banned": True, "ban_reason": reason}}}
         )
 
-    async def get_ban_status(self, id):
-        user = await self.users.find_one({"id": int(id)})
+    async def get_ban_status(self, user_id):
+        user = await self.users_collection.find_one({"id": int(user_id)})
         if not user:
             return {"is_banned": False, "ban_reason": ""}
         return user.get("ban_status", {"is_banned": False, "ban_reason": ""})
 
     async def get_all_users(self):
-        return self.users.find({})  # ✅ अब self.users से Query होगी
+        return self.users_collection.find({})
 
     async def delete_user(self, user_id):
-        await self.users.delete_many({"id": int(user_id)})  
+        await self.users_collection.delete_many({"id": int(user_id)})
 
     async def get_banned(self):
-        users = self.users.find({"ban_status.is_banned": True})  # ✅ अब self.users सही से इस्तेमाल हो रहा है
-        chats = self.groups.find({"chat_status.is_disabled": True})
-        b_chats = [chat["id"] async for chat in chats]
-        b_users = [user["id"] async for user in users]
-        return b_users, b_chats
+        users = self.users_collection.find({"ban_status.is_banned": True})
+        chats = self.chats_collection.find({"chat_status.is_disabled": True})
+        banned_users = [user["id"] async for user in users]
+        banned_chats = [chat["id"] async for chat in chats]
+        return banned_users, banned_chats
 
-    async def add_chat(self, chat, title):
-        chat = self.new_group(chat, title)
-        await self.groups.insert_one(chat)  # ✅ अब self.groups सही से इस्तेमाल हो रहा है
-    
-    async def get_chat(self, chat):
-        chat = await self.groups.find_one({"id": int(chat)})  
-        return chat.get("chat_status") if chat else False
+    async def add_chat(self, chat_id, title):
+        chat = self.new_group(chat_id, title)
+        await self.chats_collection.insert_one(chat)
 
-    async def re_enable_chat(self, id):
-        await self.groups.update_one(
-            {"id": int(id)}, 
+    async def get_chat(self, chat_id):
+        chat = await self.chats_collection.find_one({"id": int(chat_id)})
+        return False if not chat else chat.get("chat_status")
+
+    async def re_enable_chat(self, chat_id):
+        await self.chats_collection.update_one(
+            {"id": int(chat_id)},
             {"$set": {"chat_status": {"is_disabled": False, "reason": ""}}}
         )
-        
+
+    async def disable_chat(self, chat_id, reason="No Reason"):
+        await self.chats_collection.update_one(
+            {"id": int(chat_id)},
+            {"$set": {"chat_status": {"is_disabled": True, "reason": reason}}}
+        )
+
     async def total_chat_count(self):
-        return await self.groups.count_documents({})
-    
+        return await self.chats_collection.count_documents({})
+
     async def get_all_chats(self):
-        return self.groups.find({})  
+        return self.chats_collection.find({})
 
     async def get_db_size(self):
-        return (await self.db.command("dbstats"))["dataSize"]
+        stats = await self.db.command("dbstats")
+        return stats["dataSize"]
 
-db = Database(DATABASE_URI, DATABASE_NAME)  # ✅ अब सही Database Object बनेगा
+# ✅ Database Object बनाएं, जिससे हम इसे `bot.py` में Import कर सकें
+db = Database(DATABASE_URI, DATABASE_NAME)
