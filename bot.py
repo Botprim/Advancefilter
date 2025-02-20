@@ -119,3 +119,11 @@ if __name__ == '__main__':
         loop.run_until_complete(Lazy_start())
     except KeyboardInterrupt:
         logging.info('Service Stopped. Bye 👋')
+        
+  import asyncio
+
+async def main():
+    await Lazy_start()
+
+if __name__ == "__main__":
+    asyncio.run(main())
