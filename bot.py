@@ -1,13 +1,11 @@
-
 import sys
 import glob
 import importlib
 from pathlib import Path
-from pyrogram import idle
 import logging
 import logging.config
 import asyncio
-from pyrogram import Client, __version__
+from pyrogram import Client, __version__, idle
 from pyrogram.raw.all import layer
 from database.ia_filterdb import Media
 from database.users_chats_db import db
@@ -40,17 +38,7 @@ logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
-# Fix: Asyncio Event Loop Issue
-try:
-    loop = asyncio.get_running_loop()
-except RuntimeError:
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-
-# Start Bot (Ensure only one instance)
-if not LazyPrincessBot.is_connected:
-    LazyPrincessBot.start()
-
+# Fix: Correct Asyncio Event Loop Setup
 async def Lazy_start():
     print('\nInitializing Lazy Bot')
 
@@ -74,9 +62,9 @@ async def Lazy_start():
     if ON_HEROKU:
         asyncio.create_task(ping_server())
 
-    # Fix: MongoDB Motor Loop Issue
+    # Fix: Ensure MongoDB Uses the Correct Event Loop
     loop = asyncio.get_running_loop()
-    db.get_io_loop = loop  # Ensure MongoDB uses the same loop
+    db.get_io_loop = loop  
 
     b_users, b_chats = [], []
     async for user in db.users.find({"banned": True}):
@@ -122,9 +110,10 @@ async def Lazy_start():
 
     await idle()
 
-# Fix: Async Main Function
+# Fix: Correctly Start the Bot Without Event Loop Conflict
 async def main():
+    await LazyPrincessBot.start()  # Ensure bot starts inside the correct loop
     await Lazy_start()
 
 if __name__ == "__main__":
-    asyncio.run(main())  # Ensure only one event loop is used
+    asyncio.run(main())  # Now the bot and async functions share the same event loop
