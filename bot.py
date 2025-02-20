@@ -34,7 +34,7 @@ import pytz
 from aiohttp import web
 from plugins import web_server
 
-
+import asyncio
 from pyrogram import idle
 from lazybot import LazyPrincessBot
 from util.keepalive import ping_server
@@ -44,8 +44,6 @@ from lazybot.clients import initialize_clients
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 LazyPrincessBot.start()
-import asyncio
-await asyncio.sleep(5)  # 5 सेकंड की देरी से बॉट स्टार्ट होगा
 try:
     loop = asyncio.get_running_loop()
 except RuntimeError:
@@ -88,7 +86,10 @@ async def Lazy_start():
     today = date.today()
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
-    await LazyPrincessBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
+    try:
+    await LazyPrincessBot.send_message(chat_id=LOG_CHANNEL, text="Bot restarted successfully!")
+except Exception as e:
+    print(f"Error: {e} - Check if LOG_CHANNEL ID is correct and bot is admin.")
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
