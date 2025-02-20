@@ -34,7 +34,7 @@ import pytz
 from aiohttp import web
 from plugins import web_server
 
-import asyncio
+
 from pyrogram import idle
 from lazybot import LazyPrincessBot
 from util.keepalive import ping_server
@@ -44,6 +44,8 @@ from lazybot.clients import initialize_clients
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 LazyPrincessBot.start()
+import asyncio
+await asyncio.sleep(5)  # 5 सेकंड की देरी से बॉट स्टार्ट होगा
 try:
     loop = asyncio.get_running_loop()
 except RuntimeError:
