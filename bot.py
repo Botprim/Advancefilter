@@ -47,14 +47,13 @@ except RuntimeError:
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
 
-# Start Bot
+# Start Bot (Ensure only one instance)
 if not LazyPrincessBot.is_connected:
     LazyPrincessBot.start()
 
 async def Lazy_start():
-    print('\n')
-    print('Initializing Lazy Bot')
-    
+    print('\nInitializing Lazy Bot')
+
     bot_info = await LazyPrincessBot.get_me()
     LazyPrincessBot.username = bot_info.username
 
@@ -75,7 +74,16 @@ async def Lazy_start():
     if ON_HEROKU:
         asyncio.create_task(ping_server())
 
-    b_users, b_chats = await db.get_banned()
+    # Fix: MongoDB Motor Loop Issue
+    loop = asyncio.get_running_loop()
+    db.get_io_loop = loop  # Ensure MongoDB uses the same loop
+
+    b_users, b_chats = [], []
+    async for user in db.users.find({"banned": True}):
+        b_users.append(user["id"])
+    async for chat in db.chats.find({"banned": True}):
+        b_chats.append(chat["id"])
+
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
@@ -114,16 +122,9 @@ async def Lazy_start():
 
     await idle()
 
-if __name__ == '__main__':
-    try:
-        loop.run_until_complete(Lazy_start())
-    except KeyboardInterrupt:
-        logging.info('Service Stopped. Bye 👋')
-        
-  import asyncio
-
+# Fix: Async Main Function
 async def main():
     await Lazy_start()
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(main())  # Ensure only one event loop is used
