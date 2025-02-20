@@ -7,14 +7,14 @@ import logging.config
 import asyncio
 from pyrogram import Client, __version__, idle
 from pyrogram.raw.all import layer
+from database.users_chats_db import users_collection, chats_collection  # ✅ सही से Import करें
 from database.ia_filterdb import Media
-from database.users_chats_db import db
 from info import *
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
 from pyrogram import types
-from Script import script 
-from datetime import date, datetime 
+from Script import script
+from datetime import date, datetime
 import pytz
 from aiohttp import web
 from plugins import web_server
@@ -27,18 +27,12 @@ logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("imdbpy").setLevel(logging.ERROR)
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
-logging.getLogger("aiohttp").setLevel(logging.ERROR)
-logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 
 # Plugins Path
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
-# Fix: Correct Asyncio Event Loop Setup
+# ✅ Fix: Asyncio Event Loop Setup
 async def Lazy_start():
     print('\nInitializing Lazy Bot')
 
@@ -62,14 +56,11 @@ async def Lazy_start():
     if ON_HEROKU:
         asyncio.create_task(ping_server())
 
-    # Fix: Ensure MongoDB Uses the Correct Event Loop
-    loop = asyncio.get_running_loop()
-    db.get_io_loop = loop  
-
+    # ✅ Fix: MongoDB से सही Async कनेक्शन
     b_users, b_chats = [], []
-    async for user in db.users.find({"banned": True}):
+    async for user in users_collection.find({"banned": True}):  # ✅ अब सही काम करेगा
         b_users.append(user["id"])
-    async for chat in db.chats.find({"banned": True}):
+    async for chat in chats_collection.find({"banned": True}):  # ✅ अब सही काम करेगा
         b_chats.append(chat["id"])
 
     temp.BANNED_USERS = b_users
@@ -87,18 +78,17 @@ async def Lazy_start():
     logging.info(script.LOGO)
 
     tz = pytz.timezone('Asia/Kolkata')
-    today = date.today()
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
 
-    # Fix: LOG_CHANNEL Issue
+    # ✅ Fix: LOG_CHANNEL Issue
     try:
         if LOG_CHANNEL:
             await LazyPrincessBot.send_message(chat_id=int(LOG_CHANNEL), text="Bot restarted successfully!")
     except Exception as e:
         print(f"LOG_CHANNEL Error: {e} - Check if the ID is correct and bot is admin.")
 
-    # Fix: Web Server Startup Optimization
+    # ✅ Fix: Web Server Startup Optimization
     try:
         app = web.AppRunner(await web_server())
         await app.setup()
@@ -110,10 +100,10 @@ async def Lazy_start():
 
     await idle()
 
-# Fix: Correctly Start the Bot Without Event Loop Conflict
+# ✅ Fix: Correctly Start the Bot Without Event Loop Conflict
 async def main():
-    await LazyPrincessBot.start()  # Ensure bot starts inside the correct loop
+    await LazyPrincessBot.start()  # ✅ Bot को सही तरीके से स्टार्ट करें
     await Lazy_start()
 
 if __name__ == "__main__":
-    asyncio.run(main())  # Now the bot and async functions share the same event loop
+    asyncio.run(main())  # ✅ Event Loop Conflict का Issue Fix
