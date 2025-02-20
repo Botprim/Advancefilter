@@ -7,8 +7,8 @@ import logging.config
 import asyncio
 from pyrogram import Client, __version__, idle
 from pyrogram.raw.all import layer
-from database.users_chats_db import users_collection, chats_collection  # ✅ सही से Import करें
 from database.ia_filterdb import Media
+from database.users_chats_db import db  # ✅ अब पूरा Database Object Import कर रहे हैं
 from info import *
 from utils import temp
 from typing import Union, Optional, AsyncGenerator
@@ -22,17 +22,27 @@ from lazybot import LazyPrincessBot
 from util.keepalive import ping_server
 from lazybot.clients import initialize_clients
 
-# Logging Setup
+# ✅ Users और Groups Collection को Access करें
+users_collection = db.col  # Users Collection
+chats_collection = db.grp  # Groups Collection
+
+# ✅ Logging Setup
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("imdbpy").setLevel(logging.ERROR)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logging.getLogger("aiohttp").setLevel(logging.ERROR)
+logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 
-# Plugins Path
+# ✅ Plugins Path
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
-# ✅ Fix: Asyncio Event Loop Setup
+# ✅ Fix: Correct Asyncio Event Loop Setup
 async def Lazy_start():
     print('\nInitializing Lazy Bot')
 
@@ -56,11 +66,14 @@ async def Lazy_start():
     if ON_HEROKU:
         asyncio.create_task(ping_server())
 
-    # ✅ Fix: MongoDB से सही Async कनेक्शन
+    # ✅ Fix: Ensure MongoDB Uses the Correct Event Loop
+    loop = asyncio.get_running_loop()
+    db.get_io_loop = loop  
+
     b_users, b_chats = [], []
-    async for user in users_collection.find({"banned": True}):  # ✅ अब सही काम करेगा
+    async for user in users_collection.find({"banned": True}):
         b_users.append(user["id"])
-    async for chat in chats_collection.find({"banned": True}):  # ✅ अब सही काम करेगा
+    async for chat in chats_collection.find({"banned": True}):
         b_chats.append(chat["id"])
 
     temp.BANNED_USERS = b_users
@@ -78,6 +91,7 @@ async def Lazy_start():
     logging.info(script.LOGO)
 
     tz = pytz.timezone('Asia/Kolkata')
+    today = date.today()
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
 
@@ -102,8 +116,8 @@ async def Lazy_start():
 
 # ✅ Fix: Correctly Start the Bot Without Event Loop Conflict
 async def main():
-    await LazyPrincessBot.start()  # ✅ Bot को सही तरीके से स्टार्ट करें
+    await LazyPrincessBot.start()  # ✅ Ensure bot starts inside the correct loop
     await Lazy_start()
 
 if __name__ == "__main__":
-    asyncio.run(main())  # ✅ Event Loop Conflict का Issue Fix
+    asyncio.run(main())  # ✅ Now the bot and async functions share the same event loop
