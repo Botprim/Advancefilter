@@ -95,4 +95,11 @@ async def Lazy_start():
     print("Bot Stopped.")
 
 if __name__ == "__main__":
-    asyncio.run(Lazy_start())  # ✅ Correct Event Loop Handling
+    try:
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            asyncio.run(Lazy_start())
+        else:
+            loop.run_until_complete(Lazy_start())
+    except RuntimeError:
+        asyncio.run(Lazy_start())
