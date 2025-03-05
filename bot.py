@@ -46,6 +46,8 @@ ppath = "plugins/*.py"
 files = glob.glob(ppath)
 LazyPrincessBot.start()
 loop = asyncio.get_event_loop()
+
+
 async def Lazy_start():
     print('\n')
     print('Initalizing Lazy Bot')
