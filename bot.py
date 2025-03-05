@@ -85,15 +85,7 @@ async def Lazy_start():
     today = date.today()
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
-    try:
-    LOG_CHANNEL = -1002372249450  # Yaha manually channel ID daal sakte hain
-    if LOG_CHANNEL and isinstance(LOG_CHANNEL, int):
-        await LazyPrincessBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
-        logging.info(f"✅ Log message sent to LOG_CHANNEL: {LOG_CHANNEL}")
-    else:
-        logging.warning("⚠ LOG_CHANNEL is not set or invalid. Please check the environment variable.")
-except Exception as e:
-    logging.error(f"❌ Failed to send log message to LOG_CHANNEL: {str(e)}")
+   await LazyPrincessBot.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(today, time))
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
