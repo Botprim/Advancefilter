@@ -19,7 +19,7 @@ logging.basicConfig(
 logging.getLogger("aiohttp").setLevel(logging.ERROR)
 logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 import pyrogram.utils
-pyrogram.utils.MIN_CHANNEL_ID = -1002323650440
+pyrogram.utils.MIN_CHANNEL_ID = -1003111618647
 
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
@@ -99,4 +99,5 @@ if __name__ == '__main__':
         loop.run_until_complete(Lazy_start())
     except KeyboardInterrupt:
         logging.info('Service Stopped Bye 👋')
+
 
